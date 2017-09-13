@@ -21,6 +21,7 @@ gwt {
     gwtVersion='2.8.1'
     modules 'com.steg.gwtjson.gwtjson'
     maxHeapSize = '2G'
+	src += files("build/generated/source/apt/main")
 }
 
 repositories {
