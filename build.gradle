@@ -1,0 +1,48 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'de.richsource.gradle.plugins:gwt-gradle-plugin:0.6'
+    }
+}
+
+plugins {
+  id "net.ltgt.apt" version "0.12"
+}
+
+apply plugin: 'war'
+apply plugin: 'gwt'
+apply plugin: 'eclipse'
+apply plugin: 'net.ltgt.apt'
+apply plugin: 'net.ltgt.apt-eclipse'
+
+gwt {
+    gwtVersion='2.8.1'
+    modules 'com.steg.gwtjson.gwtjson'
+    maxHeapSize = '2G'
+}
+
+repositories {
+	jcenter()
+}
+
+dependencies {
+	compile 'com.google.auto.value:auto-value:1.5'
+	apt 'com.google.auto.value:auto-value:1.5'
+	gwt 'com.github.nmorel.gwtjackson:gwt-jackson:0.14.2'
+}
+
+eclipse {
+	classpath {
+		file {
+		 	withXml {
+		 		def node = it.asNode()
+		 		node.appendNode('classpathentry', [kind: 'con', path: 'com.gwtplugins.gwt.eclipse.core.GWT_CONTAINER'])
+		 	}
+	 	}
+	}
+	project {
+		natures 'com.gwtplugins.gwt.eclipse.core.gwtNature'
+	}
+}
